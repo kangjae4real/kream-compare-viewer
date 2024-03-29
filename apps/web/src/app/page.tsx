@@ -1,7 +1,5 @@
+import { Heading } from "@components/heading";
+
 export default function IndexPage() {
-  return (
-    <div>
-      <span>index</span>
-    </div>
-  );
+  return <div></div>;
 }

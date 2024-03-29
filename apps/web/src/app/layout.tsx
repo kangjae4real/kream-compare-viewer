@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BaseLayout from "@components/layouts/base-layout";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -17,8 +18,10 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>{children}</body>
+    <html lang="ko">
+      <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+        <BaseLayout>{children}</BaseLayout>
+      </body>
     </html>
   );
 }
