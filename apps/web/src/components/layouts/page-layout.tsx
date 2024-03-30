@@ -10,7 +10,7 @@ const PageLayout = ({ children, hideHeader = false, ...props }: PageLayoutProps)
   return (
     <div {...props}>
       {!hideHeader && <Header />}
-      <div className={cn(!hideHeader && "mt-4")}>{children}</div>
+      <div className={cn(!hideHeader && "mt-4", "px-3 lg:px-0")}>{children}</div>
     </div>
   );
 };
