@@ -33,7 +33,7 @@ const Header = ({ ...props }: HeaderProps) => {
     return (
       <Loading
         list={loadingList}
-        options={{ direction: "row", className: "px-3 lg:px-0 py-3 flex justify-between items-center" }}
+        options={{ direction: "row", className: "px-3 lg:px-0 py-3 flex justify-between items-center border-b" }}
       />
     );
   }

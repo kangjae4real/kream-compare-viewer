@@ -18,9 +18,9 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement>, VariantProps<
   Component: HeadingType;
 }
 
-export const Heading = ({ Component, children, ...props }: HeadingProps) => {
+export const Heading = ({ Component, className, children, ...props }: HeadingProps) => {
   return (
-    <Component className={cn(headingVariants({ variant: Component }))} {...props}>
+    <Component className={cn(headingVariants({ variant: Component }), className)} {...props}>
       {children}
     </Component>
   );
