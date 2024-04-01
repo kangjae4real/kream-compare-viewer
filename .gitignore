@@ -3,3 +3,8 @@
 **/*/.idea
 .fleet
 **/*/.fleet
+
+# Docker
+.pgdata
+.pgdata.dev
+.pgdata.prod

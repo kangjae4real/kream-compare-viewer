@@ -1,0 +1,55 @@
+version: "3"
+
+volumes:
+  db: {}
+
+services:
+  db:
+    restart: unless-stopped
+    hostname: db
+    container_name: db
+    image: postgres:16.2
+    volumes:
+      - ./.pgdata.prod:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+
+  api:
+    hostname: api
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    volumes:
+      - ./apps/api:/api
+    environment:
+      COMMAND: "start"
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+      - db
+
+  web:
+    hostname: "web"
+    container_name: "web"
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    volumes:
+      - ./apps/web:/web
+    environment:
+      COMMAND: "start"
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    depends_on:
+      - "api"
