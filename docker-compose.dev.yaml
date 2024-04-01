@@ -8,17 +8,18 @@ services:
     restart: unless-stopped
     hostname: db
     container_name: db
-    image: postgres:16.2
+    image: mysql:8.3.0
     volumes:
-      - ./.pgdata.dev:/var/lib/postgresql/data
+      - ./.mysql.dev:/var/lib/mysql
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: common
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - "5432:5432"
+      - "3306:3306"
     expose:
-      - "5432"
+      - "3306"
 
   api:
     hostname: api

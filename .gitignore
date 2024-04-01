@@ -5,6 +5,5 @@
 **/*/.fleet
 
 # Docker
-.pgdata
-.pgdata.dev
-.pgdata.prod
+.mysql.dev
+.mysql.prod
