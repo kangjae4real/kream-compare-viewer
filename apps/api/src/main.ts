@@ -5,14 +5,12 @@ import { setUpDocument } from './swagger';
 
 dotenv.config();
 
-async function bootstrap() {
+async function app() {
   const { PORT } = process.env;
 
   const app = await NestFactory.create(AppModule);
-
   setUpDocument(app);
-
   await app.listen(PORT);
 }
 
-bootstrap();
+app();
