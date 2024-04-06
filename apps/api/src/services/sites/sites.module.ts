@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SitesService } from '@/sites/sites.service';
-import { SitesController } from '@/sites/sites.controller';
+import { SitesService } from '@/services/sites/sites.service';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
@@ -10,7 +9,7 @@ import { HttpModule } from '@nestjs/axios';
       maxRedirects: 5,
     }),
   ],
-  controllers: [SitesController],
   providers: [SitesService],
+  exports: [SitesService],
 })
-export class SitesModule {}
+export class SitesServiceModule {}
