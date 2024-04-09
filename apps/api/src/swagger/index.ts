@@ -10,9 +10,6 @@ export const getDocument = (app: INestApplication): OpenAPIObject => {
   return SwaggerModule.createDocument(app, config);
 };
 
-export const setUpDocument = (
-  app: INestApplication,
-  docsPath?: string,
-): void => {
-  SwaggerModule.setup(docsPath ?? 'docs', app, getDocument(app));
+export const setUpDocument = (app: INestApplication): void => {
+  SwaggerModule.setup('docs', app, getDocument(app));
 };
