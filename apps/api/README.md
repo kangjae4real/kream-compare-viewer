@@ -1,11 +1,11 @@
 # Kream Compare Viewer - API
 
-## Requirements
+## 요구사양
 - Node.js
 - Yarn
 - Nest CLI
 
-## Run locally
+## 직접 실행
 ```shell
 $ yarn
 $ yarn start:dev # dev mode

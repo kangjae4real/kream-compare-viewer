@@ -1,10 +1,10 @@
 # Kream Compare Viewer - Web
 
-## Requirements
+## 요구사양
 - Node.js
 - Yarn
 
-## Run locally
+## 직접 실행
 ```shell
 $ yarn
 $ yarn dev # dev mode
