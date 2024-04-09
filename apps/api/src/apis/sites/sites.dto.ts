@@ -1,12 +1,15 @@
-export class GetInfoRequest {}
-
-export class Title {
+export class ProductTitle {
   english: string;
   korean: string;
 }
 
+export class ProductBrand extends ProductTitle {}
+
 export class GetInfoResponse {
-  title: Title;
+  title: ProductTitle;
+  brand: ProductBrand;
   price: number;
-  imageSrc: string;
+  interest: number;
+  imageURL: string;
+  siteURL: string;
 }

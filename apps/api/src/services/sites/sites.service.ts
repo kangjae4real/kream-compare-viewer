@@ -1,46 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { makeFailure, makeSuccess, Try } from '@/utils/try';
-import { GetInfoResponse } from '@/apis/sites/sites.dto';
-import { GET_ERROR } from '@/services/sites/errors';
-import { lastValueFrom, map, Observable } from 'rxjs';
-import parser from 'node-html-parser';
+import {
+  GetInfoResponse,
+  ProductBrand,
+  ProductTitle,
+} from '@/apis/sites/sites.dto';
+import { ScraperService } from '@/services/scraper/scraper.service';
 
 @Injectable()
 export class SitesService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(private readonly scraperService: ScraperService) {}
 
-  public async getInfo(id: string): Promise<Try<GetInfoResponse, GET_ERROR>> {
-    let fetchResult: Observable<string>;
+  public async getInfo(id: string): Promise<GetInfoResponse | null> {
+    const titles = await this.scraperService.getTitle<ProductTitle>(id);
+    const brands = await this.scraperService.getBrand<ProductBrand>(id);
+    const price = await this.scraperService.getPrice<number>(id);
+    const interest = await this.scraperService.getInterest<number>(id);
 
-    try {
-      fetchResult = this.httpService
-        .get(`https://kream.co.kr/products/${id}`)
-        .pipe(map((value) => value.data));
-    } catch (error) {
-      return makeFailure('NOT_FOUND');
+    if (!titles || !brands) {
+      return null;
     }
 
-    if (!fetchResult) {
-      return makeFailure('NOT_FOUND');
-    }
-
-    const html = await lastValueFrom(fetchResult);
-    const dom = parser.parse(html);
-    const englishTitle = dom
-      .querySelector('.main-title-container > .title')
-      .textContent.trim();
-    const koreanTitle = dom.querySelector(
-      '.main-title-container > .sub-title',
-    ).textContent;
-
-    return makeSuccess({
+    return {
       title: {
-        english: englishTitle,
-        korean: koreanTitle,
+        ...titles,
       },
-      price: 12345,
-      imageSrc: 'https://naver.com',
-    });
+      brand: {
+        ...brands,
+      },
+      price,
+      interest,
+      imageURL: 'asd',
+      siteURL: '123',
+    };
   }
 }

@@ -1,14 +1,9 @@
 import { Module } from '@nestjs/common';
 import { SitesService } from '@/services/sites/sites.service';
-import { HttpModule } from '@nestjs/axios';
+import { ScraperServiceModule } from '@/services/scraper/scraper.module';
 
 @Module({
-  imports: [
-    HttpModule.register({
-      timeout: 5000,
-      maxRedirects: 5,
-    }),
-  ],
+  imports: [ScraperServiceModule],
   providers: [SitesService],
   exports: [SitesService],
 })
