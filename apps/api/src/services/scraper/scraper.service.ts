@@ -9,10 +9,6 @@ export class ScraperService {
 
   private productURL = `/products`;
 
-  private makeURL(id: string, targetURL?: `/${string}`): string {
-    return `${targetURL ?? this.productURL}/${id}`;
-  }
-
   private async makeDOM(
     id: string,
     targetURL?: `/${string}`,
@@ -32,26 +28,39 @@ export class ScraperService {
     return parser.parse(html) as unknown as HTMLElement;
   }
 
+  public makeURL(id: string, targetURL?: `/${string}`): string {
+    return `${targetURL ?? this.productURL}/${id}`;
+  }
+
   public async getTitle<ReturnType>(
     id: string,
     targetURL?: `/${string}`,
   ): Promise<ReturnType | null> {
     const dom = await this.makeDOM(id, targetURL);
+    let english;
+    let korean;
 
-    const englishTitle = dom
-      .querySelector('.main-title-container > .title')
-      .textContent.trim();
-    const koreanTitle = dom.querySelector(
-      '.main-title-container > .sub-title',
-    ).textContent;
+    try {
+      english = dom
+        .querySelector('.main-title-container > .title')
+        .textContent.trim();
+      korean = dom.querySelector(
+        '.main-title-container > .sub-title',
+      ).textContent;
+    } catch (error) {
+      if (error) {
+        english = null;
+        korean = null;
+      }
+    }
 
-    if (!englishTitle || !koreanTitle) {
+    if (!english || !korean) {
       return null;
     }
 
     return {
-      english: englishTitle,
-      korean: koreanTitle,
+      english,
+      korean,
     } as ReturnType;
   }
 
@@ -60,21 +69,30 @@ export class ScraperService {
     targetURL?: `/${string}`,
   ): Promise<ReturnType | null> {
     const dom = await this.makeDOM(id, targetURL);
+    let english;
+    let korean;
 
-    const englishBrand = dom.querySelector(
-      '.brand-shortcut .title > .title-text',
-    ).textContent;
-    const koreanBrand = dom.querySelector(
-      '.brand-shortcut .subtitle-wrap > .subtitle',
-    ).textContent;
+    try {
+      english = dom.querySelector(
+        '.brand-shortcut .title > .title-text',
+      ).textContent;
+      korean = dom.querySelector(
+        '.brand-shortcut .subtitle-wrap > .subtitle',
+      ).textContent;
+    } catch (error) {
+      if (error) {
+        english = null;
+        korean = null;
+      }
+    }
 
-    if (!englishBrand || !koreanBrand) {
+    if (!english || !korean) {
       return null;
     }
 
     return {
-      english: englishBrand,
-      korean: koreanBrand,
+      english,
+      korean,
     } as ReturnType;
   }
 
@@ -83,14 +101,25 @@ export class ScraperService {
     targetURL?: `/${string}`,
   ): Promise<ReturnType | null> {
     const dom = await this.makeDOM(id, targetURL);
+    let price;
 
-    const price = parseInt(
-      dom
-        .querySelector('.price-text-container > .price')
-        .textContent.replace(',', '')
-        .replace('원', ''),
-      10,
-    );
+    try {
+      price = parseInt(
+        dom
+          .querySelector('.price-text-container > .price')
+          .textContent.replace(',', '')
+          .replace('원', ''),
+        10,
+      );
+    } catch (error) {
+      if (error) {
+        price = null;
+      }
+    }
+
+    if (!price) {
+      return null;
+    }
 
     return price as ReturnType;
   }
@@ -100,12 +129,45 @@ export class ScraperService {
     targetURL?: `/${string}`,
   ): Promise<ReturnType | null> {
     const dom = await this.makeDOM(id, targetURL);
+    let interest;
 
-    const interest = parseInt(
-      dom.querySelector('.wish_count_num').textContent.replace(',', ''),
-      10,
-    );
+    try {
+      interest = parseInt(
+        dom.querySelector('.wish_count_num').textContent.replace(',', ''),
+        10,
+      );
+    } catch (error) {
+      if (error) {
+        interest = null;
+      }
+    }
+
+    if (!interest) {
+      return null;
+    }
 
     return interest as ReturnType;
+  }
+
+  public async getImageURL<ReturnType>(
+    id: string,
+    targetURL?: `/${string}`,
+  ): Promise<ReturnType | null> {
+    const dom = await this.makeDOM(id, targetURL);
+    let imageURL;
+
+    try {
+      imageURL = dom.querySelector('.product_img > .image').getAttribute('src');
+    } catch (error) {
+      if (error) {
+        imageURL = null;
+      }
+    }
+
+    if (!imageURL) {
+      return null;
+    }
+
+    return imageURL as ReturnType;
   }
 }

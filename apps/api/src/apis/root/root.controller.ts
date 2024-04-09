@@ -20,8 +20,8 @@ export class RootController {
   }
 
   @ApiOperation({
-    description: 'Get server health',
     summary: 'Health check',
+    description: 'Get server health',
   })
   @Get('health-check')
   @HealthCheck()

@@ -9,8 +9,8 @@ export class SitesController {
   constructor(private readonly sitesService: SitesService) {}
 
   @ApiOperation({
-    description: 'Get kream product info (like title, price, image)',
     summary: 'Get kream product info',
+    description: 'Get kream product info (like title, price, image)',
   })
   @Get(':id')
   async getInfo(

@@ -6,10 +6,10 @@ export class ProductTitle {
 export class ProductBrand extends ProductTitle {}
 
 export class GetInfoResponse {
-  title: ProductTitle;
-  brand: ProductBrand;
-  price: number;
-  interest: number;
-  imageURL: string;
-  siteURL: string;
+  title?: ProductTitle;
+  brand?: ProductBrand;
+  price?: number;
+  interest?: number;
+  imageURL?: string;
+  siteURL?: string;
 }
