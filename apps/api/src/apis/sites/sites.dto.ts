@@ -3,7 +3,9 @@ export class ProductTitle {
   korean: string;
 }
 
-export class ProductBrand extends ProductTitle {}
+export class ProductBrand extends ProductTitle {
+  logo?: string;
+}
 
 export class GetInfoResponse {
   title?: ProductTitle;

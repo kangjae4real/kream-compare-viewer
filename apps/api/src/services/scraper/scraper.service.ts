@@ -71,6 +71,7 @@ export class ScraperService {
     const dom = await this.makeDOM(id, targetURL);
     let english;
     let korean;
+    let logo;
 
     try {
       english = dom.querySelector(
@@ -79,10 +80,16 @@ export class ScraperService {
       korean = dom.querySelector(
         '.brand-shortcut .subtitle-wrap > .subtitle',
       ).textContent;
+      logo = dom
+        .querySelector(
+          '.brand-shortcut .logo-image-wrap > .logo-image > .image',
+        )
+        .getAttribute('src');
     } catch (error) {
       if (error) {
         english = null;
         korean = null;
+        logo = null;
       }
     }
 
@@ -93,6 +100,7 @@ export class ScraperService {
     return {
       english,
       korean,
+      logo,
     } as ReturnType;
   }
 
