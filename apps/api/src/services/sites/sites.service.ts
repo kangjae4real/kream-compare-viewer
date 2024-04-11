@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
-  GetInfoResponse,
   ProductBrand,
+  ProductResponse,
   ProductTitle,
 } from '@/apis/sites/sites.dto';
 import { ScraperService } from '@/services/scraper/scraper.service';
@@ -10,7 +10,7 @@ import { ScraperService } from '@/services/scraper/scraper.service';
 export class SitesService {
   constructor(private readonly scraperService: ScraperService) {}
 
-  public async getInfo(id: string): Promise<GetInfoResponse | null> {
+  public async getProduct(id: string): Promise<ProductResponse | null> {
     const siteURL = this.scraperService.makeURL(id);
     const titles = await this.scraperService.getTitle<ProductTitle>(id);
     const brands = await this.scraperService.getBrand<ProductBrand>(id);

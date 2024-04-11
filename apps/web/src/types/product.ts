@@ -1,13 +1,13 @@
 export interface ProductTitle {
-  english: string;
-  korean: string;
+  english?: string;
+  korean?: string;
 }
 
 export interface ProductBrand extends ProductTitle {
   logo?: string;
 }
 
-export interface SitesResponse {
+export interface ProductResponse {
   title?: ProductTitle;
   brand?: ProductBrand;
   price?: number;

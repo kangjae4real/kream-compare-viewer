@@ -7,7 +7,7 @@ export class ProductBrand extends ProductTitle {
   logo?: string;
 }
 
-export class GetInfoResponse {
+export class ProductResponse {
   title?: ProductTitle;
   brand?: ProductBrand;
   price?: number;
