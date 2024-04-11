@@ -7,7 +7,6 @@ export default function IndexPage() {
     <PageLayout>
       <Heading Component="h2">크림에 올라오는 제품들을 한눈에 비교해볼 수 있습니다.</Heading>
       <Pad />
-      <span>asd</span>
     </PageLayout>
   );
 }

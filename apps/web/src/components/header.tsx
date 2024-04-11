@@ -6,7 +6,7 @@ import { Button } from "@components/ui/button";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 import { useClient } from "@/hooks/useClient";
-import Loading from "@components/Loading";
+import Loading from "@components/loading";
 
 const loadingList = ["w-[160px] h-[16px] rounded", "w-[47px] h-[36px] rounded"];
 
