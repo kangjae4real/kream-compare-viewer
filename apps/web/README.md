@@ -7,6 +7,7 @@
 ## 직접 실행
 ```shell
 $ yarn
+$ yarn client # generate api client
 $ yarn dev # dev mode
 $ yarn build && yarn start # prod mode
 ```
