@@ -1,0 +1,194 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: RootController_getHello
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - Root
+  /health-check:
+    get:
+      operationId: RootController_healthCheck
+      summary: Health check
+      description: Get server health
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      tags:
+        - Root
+  /sites/{id}:
+    get:
+      operationId: SitesController_getProduct
+      summary: Get kream product info
+      description: Get kream product info (like title, price, image)
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+      tags:
+        - Sites
+info:
+  title: Kream Compare Viewer REST API
+  description: ''
+  version: 0.1.0
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    ProductTitle:
+      type: object
+      properties:
+        english:
+          type: string
+        korean:
+          type: string
+      required:
+        - english
+        - korean
+    ProductBrand:
+      type: object
+      properties:
+        english:
+          type: string
+        korean:
+          type: string
+        logo:
+          type: string
+      required:
+        - english
+        - korean
+    ProductResponse:
+      type: object
+      properties:
+        title:
+          $ref: '#/components/schemas/ProductTitle'
+        brand:
+          $ref: '#/components/schemas/ProductBrand'
+        price:
+          type: number
+        interest:
+          type: number
+        imageURL:
+          type: string
+        siteURL:
+          type: string

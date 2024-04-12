@@ -1,4 +1,4 @@
-import { cva } from "class-variance-authority";
+import { cva, VariantProps } from "class-variance-authority";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@components/ui/card";
 import { HTMLAttributes, useMemo } from "react";
 import { ProductResponse } from "@/types/product";
@@ -8,7 +8,7 @@ import { Button } from "@components/ui/button";
 
 const productCardVariants = cva("");
 
-interface ProductCardProps extends HTMLAttributes<HTMLDivElement> {
+interface ProductCardProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof productCardVariants> {
   product?: ProductResponse;
 }
 
@@ -33,6 +33,14 @@ const ProductCard = ({ className, product, ...props }: ProductCardProps) => {
     );
   }, [product]);
 
+  const content = useMemo(() => {
+    if (!product) {
+      return <Input placeholder="Link or ID" />;
+    }
+
+    return <span>response</span>;
+  }, [product]);
+
   const footer = useMemo(() => {
     if (!product) {
       return <Button>확인</Button>;
@@ -42,11 +50,7 @@ const ProductCard = ({ className, product, ...props }: ProductCardProps) => {
   return (
     <Card className={cn(productCardVariants(), className)} {...props}>
       <CardHeader>{header}</CardHeader>
-
-      <CardContent>
-        <Input placeholder="링크나 ID" />
-      </CardContent>
-
+      <CardContent>{content}</CardContent>
       <CardFooter>{footer}</CardFooter>
     </Card>
   );
