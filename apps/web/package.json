@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "client": "openapi-generator-cli generate -g typescript-axios -i docs/api-docs.yaml -o .api",
+    "client": "openapi-generator-cli generate -g typescript-axios -c configs/api-client.config.json -i docs/api-docs.yaml -o .api",
     "client:docs": "node scripts/generate-api-docs.js"
   },
   "dependencies": {
