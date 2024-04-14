@@ -126,7 +126,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@kcv/api-client@file:.api":
+"@kcv/api-client@file:api":
   version "0.0.0"
 
 "@lukeed/csprng@^1.0.0":
