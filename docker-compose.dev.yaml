@@ -27,7 +27,7 @@ services:
       context: ./apps/api
       dockerfile: Dockerfile
     volumes:
-      - ./:/api
+      - ./apps/api:/api
     environment:
       COMMAND: "start:dev"
     ports:
@@ -44,7 +44,7 @@ services:
       context: ./apps/web
       dockerfile: Dockerfile
     volumes:
-      - ./:/web
+      - ./apps/web:/web
     environment:
       COMMAND: "dev"
     ports:

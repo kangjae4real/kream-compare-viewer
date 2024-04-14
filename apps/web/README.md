@@ -18,3 +18,7 @@ $ yarn client # generate api client
 $ yarn dev # dev mode
 $ yarn build && yarn start # prod mode
 ```
+
+## 주의사항 (API Client)
+1. `docs/api-docs.yaml` 파일의 업데이트가 필요하다면, `yarn client:docs` 로 API Docs 생성 Script를 실행해주세요.
+2. 그 이후, `yarn client` 로 새로이 API Client 를 생성해주세요.
